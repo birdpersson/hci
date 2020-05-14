@@ -1,0 +1,149 @@
+﻿<Window x:Class="C4Z.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:dvc="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+		xmlns:local="clr-namespace:C4Z"
+		mc:Ignorable="d"
+		Title="MainWindow" Height="640" Width="1080"
+        Icon="Images/layers_32px.png">
+	<DockPanel>
+		<Menu DockPanel.Dock="Top">
+			<MenuItem Header="_File">
+				<MenuItem Header="Open" Click="Open_Click">
+					<MenuItem.Icon>
+						<Image Source="Images/notebook.png"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Save..." Click="Save_Click">
+					<MenuItem.Icon>
+						<Image Source="Images/floppydisk.png"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<Separator />
+				<MenuItem Header="Add Event" Click="AddEvent_Click">
+					<MenuItem.Icon>
+						<Image Source="Images/documents.png"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Add Type" Click="AddType_Click">
+					<MenuItem.Icon>
+						<Image Source="Images/document.png"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Add Tag" Click="AddTag_Click">
+					<MenuItem.Icon>
+						<Image Source="Images/pricetags.png"/>
+					</MenuItem.Icon>
+				</MenuItem>
+			</MenuItem>
+			<MenuItem Header="_Edit">
+				<MenuItem Header="Details">
+					<MenuItem.Icon>
+						<Image Source="Images/magnifying-glass.png"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Change">
+					<MenuItem.Icon>
+						<Image Source="Images/edit.png"/>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Delete">
+					<MenuItem.Icon>
+						<Image Source="Images/remove.png"/>
+					</MenuItem.Icon>
+				</MenuItem>
+			</MenuItem>
+			<MenuItem Header="_View">
+				<MenuItem Header="Table" Click="Table_Click">
+					<MenuItem.Icon>
+						<Image Source="Images/grid.png"/>
+					</MenuItem.Icon>
+				</MenuItem>
+			</MenuItem>
+			<MenuItem Header="_Help">
+
+			</MenuItem>
+		</Menu>
+
+		<ToolBarTray DockPanel.Dock="Top" Background="LightGray" >
+			<ToolBar>
+				<Button Click="Open_Click">
+					<Image Height="32" Source="Images/notebook.png"/>
+				</Button>
+				<Button Click="Save_Click">
+					<Image Height="32" Source="Images/floppydisk.png"/>
+				</Button>
+				<Separator/>
+				<Button Click="AddEvent_Click">
+					<Image Height="32" Source="Images/documents.png"/>
+				</Button>
+				<Button Click="AddType_Click">
+					<Image Height="32" Source="Images/document.png"/>
+				</Button>
+				<Button Click="AddTag_Click">
+					<Image Height="32" Source="Images/pricetags.png"/>
+				</Button>
+			</ToolBar>
+			<ToolBar>
+				<Button>
+					<Image Height="32" Source="Images/search.png"/>
+				</Button>
+				<Button>
+					<Image Height="32" Source="Images/edit.png"/>
+				</Button>
+				<Button>
+					<Image Height="32" Source="Images/remove.png"/>
+				</Button>
+			</ToolBar>
+			<ToolBar>
+				<Button Click="Table_Click">
+					<Image Height="32" Source="Images/grid.png"/>
+				</Button>
+			</ToolBar>
+		</ToolBarTray>
+		
+		<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+
+			<Grid Grid.Column="0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="200"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+
+				<TreeView Grid.Row="0">
+
+				</TreeView>
+
+				<dvc:Chart Grid.Row="1">
+					<dvc:PieSeries></dvc:PieSeries>
+				</dvc:Chart>
+
+			</Grid>
+
+			<ListView Grid.Column="1">
+				<ListView.Template>
+					<ControlTemplate>
+						<Canvas>
+							<Canvas.Background>
+								<ImageBrush Stretch="UniformToFill" ImageSource="Images/map.jpg" AlignmentY="Top" AlignmentX="Center"/>
+							</Canvas.Background>
+						</Canvas>
+					</ControlTemplate>
+				</ListView.Template>
+			</ListView>
+		</Grid>
+	</DockPanel>
+
+</Window>
