@@ -1,4 +1,5 @@
 ﻿using C4Z.Model;
+using C4Z.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace C4Z
     public partial class TagWindow : Window
     {
         private bool edit = false;
-        private Tag tag;
+        public static Tag tage;
 
         public Tag Etiketa
         {
@@ -40,9 +41,10 @@ namespace C4Z
         {
             InitializeComponent();
             this.DataContext = this;
-            this.tag = tag;
+            tage = tag;
             Etiketa = new Tag { Oznaka = tag.Oznaka, Boja = tag.Boja, Opis = tag.Opis };
             edit = true;
+            ID_TextChanged(null, null);
         }
 
         private void Ok_Click(object sender, RoutedEventArgs e)
@@ -52,9 +54,9 @@ namespace C4Z
                 MainWindow.Data.Tags.Add(Etiketa);
             else
             {
-                tag.Oznaka = Etiketa.Oznaka;
-                tag.Boja = Etiketa.Boja;
-                tag.Opis = Etiketa.Opis;
+                tage.Oznaka = Etiketa.Oznaka;
+                tage.Boja = Etiketa.Boja;
+                tage.Opis = Etiketa.Opis;
             }
         }
 
@@ -63,5 +65,21 @@ namespace C4Z
             this.Close();
             Application.Current.MainWindow.Show();
         }
+
+        private void ID_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TagIDValidationRule ev = new TagIDValidationRule();
+            if (ev.Validate(tbID.Text, null).IsValid == true)
+                btnOK.IsEnabled = true;
+            else
+                btnOK.IsEnabled = false;
+        }
+
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            HelpViewer help = new HelpViewer("tag", null);
+            help.Show();
+        }
+
     }
 }

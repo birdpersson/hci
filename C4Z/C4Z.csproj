@@ -74,6 +74,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="HelpViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Window\EventWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -94,6 +98,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="HelpProvider.cs" />
+    <Compile Include="HelpViewer.xaml.cs">
+      <DependentUpon>HelpViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Validation\EventIDValidationRule.cs" />
+    <Compile Include="Validation\NameValidationRule.cs" />
+    <Compile Include="Validation\TagIDValidationRule.cs" />
+    <Compile Include="Validation\TypeIDValidationRule.cs" />
     <Compile Include="Window\EventWindow.xaml.cs">
       <DependentUpon>EventWindow.xaml</DependentUpon>
     </Compile>
@@ -195,6 +207,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\arrows_remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Help\event.htm" />
+    <Content Include="Help\index.htm" />
+    <Content Include="Help\tag.htm" />
+    <Content Include="Help\type.htm" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

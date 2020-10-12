@@ -3,160 +3,235 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:dvc="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:val="clr-namespace:C4Z.Validation"
 		xmlns:local="clr-namespace:C4Z"
-		mc:Ignorable="d"
-		Title="Event" Height="700" Width="460">
-	<Border Padding="10">
-		<Grid DataContext="{Binding Event}">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="0.1*" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="0.8*" />
-				<RowDefinition Height="Auto" />
-				
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="*" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-				<RowDefinition Height="Auto" />
-			</Grid.RowDefinitions>
+        mc:Ignorable="d"
+		Title="Event" Height="600" Width="450" local:HelpProvider.HelpKey="event">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
+    </Window.CommandBindings>
 
-			<TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="0">Oznaka*:</TextBlock>
-			<TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="1">Naziv*:</TextBlock>
-			<TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="2">Opis:</TextBlock>
-			<TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="3">Tip:</TextBlock>
-			<TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="4">Ikonica:</TextBlock>
+    <Border Padding="10">
+        <Grid DataContext="{Binding Event}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.1*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="0.8*" />
 
-			<TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="6">Posecenost dogadjaja:</TextBlock>
-			<TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="7">Humanitarnog karaktera:</TextBlock>
-			<TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="8">Cena troskova za odrzavanje (USD):</TextBlock>
-			<TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="9">Drzava:</TextBlock>
-			
-			<TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="10">Grad:</TextBlock>
-			<TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="11">Mesto odrzavanja dogadjaja:</TextBlock>
-			<TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="12">Istorija datuma odrzavanja:</TextBlock>
-			<TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="13">Datum odrzavanja za sledecu godinu:</TextBlock>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
 
-			<!--Oznaka-->
-			<TextBox Margin="2 2 2 2" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" Text="{Binding Oznaka}"></TextBox>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
 
-			<!--Naziv-->
-			<TextBox Margin="2 2 2 2" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" Text="{Binding Naziv}"></TextBox>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
 
-			<!--Opis-->
-			<ScrollViewer Margin="2 2 2 2" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Stretch">
-				<TextBox Text="{Binding Opis}"></TextBox>
-			</ScrollViewer>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-			<!--Tip-->
-			<ComboBox x:Name="cbType" Margin="2 2 2 2" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=Types, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedValue="{Binding Tip}" SelectionChanged="Type_SelectionChanged">
-				<ComboBox.ItemTemplate>
-					<DataTemplate>
-						<TextBlock Text="{Binding Naziv}"/>
-					</DataTemplate>
-				</ComboBox.ItemTemplate>
-			</ComboBox>
+            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="0">Oznaka*:</TextBlock>
+            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="1">Naziv*:</TextBlock>
+            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="2">Opis:</TextBlock>
 
-			<!--Ikonica-->
-			<Grid Height="64" Margin="2 2 2 2" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Stretch">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
+            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="3">Tip:</TextBlock>
+            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="4">Ikonica:</TextBlock>
 
-				<Image Margin="2 2 2 2" Stretch="Uniform" Grid.Column="0" Name="imgIcon" Source="{Binding Ikonica}"/>
-				<StackPanel Margin="2 2 2 2" Grid.Column="1">
-					<Button Margin="2 2 2 2" Click="Choose_Click">Choose</Button>
-					<Button Margin="2 2 2 2" Click="Discard_Click">Discard</Button>
-				</StackPanel>
-			</Grid>
+            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="6">Posecenost dogadjaja:</TextBlock>
+            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="7">Humanitarnog karaktera:</TextBlock>
+            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="8">Cena troskova za odrzavanje (USD):</TextBlock>
 
-			<!--Tag-->
-			<ListView x:Name="UnchosenTags" Margin="2 2 2 2" Grid.Column="0" Grid.Row="5" Background="LightGray" ItemsSource="{Binding Tags, RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-				<ListView.ItemTemplate>
-					<DataTemplate>
-						<StackPanel>
-							<Grid Background="{Binding Boja}"/>
-							<TextBlock Text="{Binding Oznaka}"/>
-						</StackPanel>
-					</DataTemplate>
-				</ListView.ItemTemplate>
-			</ListView>
+            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="9">Drzava*:</TextBlock>
+            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="10">Grad*:</TextBlock>
+            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="11">Mesto odrzavanja dogadjaja*:</TextBlock>
 
-			<StackPanel Grid.Column="1" Grid.Row="5" VerticalAlignment="Center">
-				<Button Click="AddTag_Click">&gt;</Button>
-				<Button Click="RemoveTag_Click">&lt;</Button>
-			</StackPanel>
+            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="12">Istorija datuma odrzavanja:</TextBlock>
+            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="13">Datum odrzavanja za tekucu godinu:</TextBlock>
 
-			<ListView x:Name="ChosenTags" Margin="2 2 2 2" Grid.Column="2" Grid.Row="5" ItemsSource="{Binding Tags}">
-				<ListView.ItemTemplate>
-					<DataTemplate>
-						<StackPanel>
-							<Grid Background="{Binding Boja}"/>
-							<TextBlock Text="{Binding Oznaka}"/>
-						</StackPanel>
-					</DataTemplate>
-				</ListView.ItemTemplate>
-			</ListView>
+            <!--Oznaka-->
+            <TextBox x:Name="tbID" Margin="2 2 2 2" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" TextChanged="TextBox_TextChanged">
+                <TextBox.Text>
+                    <Binding Path="Oznaka" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:EventIDValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <TextBox.ToolTip>
+                    Oznaka mora biti jedinstvena
+                </TextBox.ToolTip>
+            </TextBox>
 
-			<!--Posecenost dogadjaja-->
-			<ComboBox Margin="2 2 2 2" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Stretch" SelectedIndex="{Binding Posecenost}">
-				<ComboBoxItem>Do 1000</ComboBoxItem>
-				<ComboBoxItem>1000-5000</ComboBoxItem>
-				<ComboBoxItem>5000-10000</ComboBoxItem>
-				<ComboBoxItem>Preko 10000</ComboBoxItem>
-			</ComboBox>
+            <!--Naziv-->
+            <TextBox x:Name="tbName" Margin="2 2 2 2" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" TextChanged="TextBox_TextChanged">
+                <TextBox.Text>
+                    <Binding Path="Naziv" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:NameValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <TextBox.ToolTip>
+                    Ime prilikom prikaza
+                </TextBox.ToolTip>
+            </TextBox>
 
-			<!--Humanitarnog karaktera-->
-			<StackPanel Margin="2 2 2 2" Orientation="Horizontal" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Stretch">
-				<RadioButton Margin="2 2 2 2" IsChecked="{Binding Humanitarna}">Da</RadioButton>
-				<RadioButton Margin="2 2 2 2" IsChecked="True">Ne</RadioButton>
-			</StackPanel>
+            <!--Opis-->
+            <ScrollViewer Margin="2 2 2 2" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Stretch">
+                <TextBox Text="{Binding Opis}"></TextBox>
+            </ScrollViewer>
 
-			<!--Cena troskova za odrzavanje-->
-			<TextBox Margin="2 2 2 2" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Stretch" Text="{Binding Cena}"></TextBox>
+            <!--Tip-->
+            <ComboBox x:Name="cbType" Margin="2 2 2 2" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=Types, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedValue="{Binding Tip}" SelectionChanged="Type_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Naziv}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+                <ComboBox.ToolTip>
+                    Odabir tipa
+                </ComboBox.ToolTip>
+            </ComboBox>
 
-			<!--Drzava-->
-			<TextBox Margin="2 2 2 2" Grid.Column="2" Grid.Row="9" HorizontalAlignment="Stretch" Text="{Binding Drzava}"></TextBox>
+            <!--Ikonica-->
+            <Grid Height="64" Margin="2 2 2 2" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-			<!--Grad-->
-			<TextBox Margin="2 2 2 2" Grid.Column="2" Grid.Row="10" HorizontalAlignment="Stretch" Text="{Binding Grad}"></TextBox>
+                <Image Margin="2 2 2 2" Stretch="Uniform" Grid.Column="0" Name="imgIcon" Source="{Binding Ikonica}"/>
+                <StackPanel Margin="2 2 2 2" Grid.Column="1">
+                    <Button Margin="2 2 2 2" Click="Choose_Click">Choose
+                        <Button.ToolTip>
+                            Odabir ikonice
+                        </Button.ToolTip>
+                    </Button>
+                    <Button Margin="2 2 2 2" Click="Discard_Click">Discard
+                        <Button.ToolTip>
+                            Vracanje ikonice na default
+                        </Button.ToolTip>
+                    </Button>
+                </StackPanel>
+            </Grid>
 
-			<!--Mesto odrzavanja dogadjaja-->
-			<TextBox Margin="2 2 2 2" Grid.Column="2" Grid.Row="11" HorizontalAlignment="Stretch" Text="{Binding Mesto}"></TextBox>
+            <!--Tag-->
+            <ListView x:Name="UnchosenTags" Margin="2 2 2 2" Grid.Column="0" Grid.Row="5" Background="LightGray" ItemsSource="{Binding Tags, RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Grid Margin="2 2 2 2" Width="20" Background="{Binding Boja}"/>
+                            <TextBlock Text="{Binding Oznaka}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ToolTip>
+                    Neizabrane etikete
+                </ListView.ToolTip>
+            </ListView>
 
-			<!--Istorija datuma odrzavanja-->
-            <TextBox Margin="2 2 2 2" Grid.Column="2" Grid.Row="12" HorizontalAlignment="Stretch" Text="ToDo: Change so it binds with graph"></TextBox>
+            <StackPanel Grid.Column="1" Grid.Row="5" VerticalAlignment="Center">
+                <Button Click="AddTag_Click">&gt;
+                    <Button.ToolTip>
+                        Dodavanje etikete
+                    </Button.ToolTip>
+                </Button>
+                <Button Click="RemoveTag_Click">&lt;
+                    <Button.ToolTip>
+                        Uklanjanje etikete
+                    </Button.ToolTip>
+                </Button>
+            </StackPanel>
 
-			<!--Datum odrzavanja za sledecu godinu-->
-			<DatePicker Margin="2 2 2 2" Grid.Column="2" Grid.Row="13" HorizontalAlignment="Stretch" SelectedDate="{Binding Datum}" />
-			
-			<!--Chart-->
-			<dvc:Chart Margin="2 2 2 2" Grid.ColumnSpan="3" Grid.Row="14">
-				<dvc:LineSeries>
-					
-				</dvc:LineSeries>
-			</dvc:Chart>
+            <ListView x:Name="ChosenTags" Margin="2 2 2 2" Grid.Column="2" Grid.Row="5" ItemsSource="{Binding Tags}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Grid Margin="2 2 2 2" Width="20" Background="{Binding Boja}"/>
+                            <TextBlock Text="{Binding Oznaka}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ToolTip>
+                    Izabrane etikete
+                </ListView.ToolTip>
+            </ListView>
 
-			<!--OK?-->
-			<Button Margin="2 2 2 2" Grid.Column="0" Grid.Row="15" Click="Ok_Click">Ok</Button>
-			<Button Margin="2 2 2 2" Grid.Column="2" Grid.Row="15" Click="Close_Click">Cancel</Button>
+            <!--Posecenost dogadjaja-->
+            <ComboBox Margin="2 2 2 2" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Stretch" SelectedIndex="{Binding Posecenost}">
+                <ComboBoxItem>Do 1000</ComboBoxItem>
+                <ComboBoxItem>1000-5000</ComboBoxItem>
+                <ComboBoxItem>5000-10000</ComboBoxItem>
+                <ComboBoxItem>Preko 10000</ComboBoxItem>
+            </ComboBox>
 
-		</Grid>
-	</Border>
+            <!--Humanitarnog karaktera-->
+            <StackPanel Margin="2 2 2 2" Orientation="Horizontal" Grid.Column="2" Grid.Row="7" HorizontalAlignment="Stretch">
+                <RadioButton Margin="2 2 2 2" IsChecked="{Binding Humanitarna}">Da</RadioButton>
+                <RadioButton Margin="2 2 2 2" IsChecked="True">Ne</RadioButton>
+            </StackPanel>
+
+            <!--Cena troskova za odrzavanje-->
+            <TextBox Margin="2 2 2 2" Grid.Column="2" Grid.Row="8" HorizontalAlignment="Stretch" Text="{Binding Cena}">
+                <TextBox.ToolTip>
+                    Cena je u dolarima
+                </TextBox.ToolTip>
+            </TextBox>
+
+            <!--Drzava-->
+            <TextBox x:Name="tbDrzava" Margin="2 2 2 2" Grid.Column="2" Grid.Row="9" HorizontalAlignment="Stretch" Text="{Binding Drzava}" TextChanged="TextBox_TextChanged"></TextBox>
+
+            <!--Grad-->
+            <TextBox x:Name="tbGrad" Margin="2 2 2 2" Grid.Column="2" Grid.Row="10" HorizontalAlignment="Stretch" Text="{Binding Grad}" TextChanged="TextBox_TextChanged"></TextBox>
+
+            <!--Mesto odrzavanja dogadjaja-->
+            <TextBox x:Name="tbMesto" Margin="2 2 2 2" Grid.Column="2" Grid.Row="11" HorizontalAlignment="Stretch" Text="{Binding Mesto}" TextChanged="TextBox_TextChanged"></TextBox>
+
+            <!--Istorija datuma odrzavanja-->
+            <Grid Margin="2 2 2 2" Grid.Column="2" Grid.Row="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox x:Name="cbDates" Grid.Column="0" IsEditable="True" ItemsSource="{Binding Dates}" SelectedItem="{Binding Date}" Text="{Binding NewDate, UpdateSourceTrigger=Explicit}">
+                    <ComboBox.ToolTip>
+                        MM/DD/YYYY
+                    </ComboBox.ToolTip>
+                </ComboBox>
+                <Button x:Name="btnAddDate" Grid.Column="1" Click="AddDate_Click">+
+                    <Button.ToolTip>
+                        Dodavanje datuma
+                    </Button.ToolTip>
+                </Button>
+                <Button x:Name="btnRemoveDate" Grid.Column="2" Click="RemoveDate_Click">-
+                    <Button.ToolTip>
+                        Uklanjanje datuma
+                    </Button.ToolTip>
+                </Button>
+            </Grid>
+
+            <!--Datum odrzavanja za sledecu godinu-->
+            <DatePicker Margin="2 2 2 2" Grid.Column="2" Grid.Row="13" HorizontalAlignment="Stretch" SelectedDate="{Binding Datum}">
+                <DatePicker.ToolTip>
+                    MM/DD/YYYY
+                </DatePicker.ToolTip>
+            </DatePicker>
+
+            <!--OK?-->
+            <Button x:Name="btnOK" Margin="2 2 2 2" Grid.Column="0" Grid.Row="14" Click="Ok_Click" IsEnabled="False">Ok</Button>
+            <Button Margin="2 2 2 2" Grid.Column="2" Grid.Row="14" Click="Close_Click">Cancel</Button>
+
+        </Grid>
+    </Border>
 </Window>

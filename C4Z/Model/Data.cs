@@ -13,9 +13,25 @@ namespace C4Z.Model
     {
         public Data()
         {
+            ListEvents = new ObservableCollection<Event>();
+            MapEvents = new ObservableCollection<Event>();
             Events = new ObservableCollection<Event>();
             Types = new ObservableCollection<Tvpe>();
             Tags = new ObservableCollection<Tag>();
+        }
+
+        [DataMember]
+        public ObservableCollection<Event> ListEvents
+        {
+            get;
+            set;
+        }
+
+        [DataMember]
+        public ObservableCollection<Event> MapEvents
+        {
+            get;
+            set;
         }
 
         [DataMember]
@@ -24,7 +40,7 @@ namespace C4Z.Model
             get;
             set;
         }
-        
+
         [DataMember]
         public ObservableCollection<Tvpe> Types
         {
@@ -38,6 +54,5 @@ namespace C4Z.Model
             get;
             set;
         }
-
     }
 }

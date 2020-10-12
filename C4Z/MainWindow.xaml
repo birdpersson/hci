@@ -3,147 +3,199 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:dvc="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:mod="clr-namespace:C4Z.Model"
 		xmlns:local="clr-namespace:C4Z"
 		mc:Ignorable="d"
-		Title="MainWindow" Height="640" Width="1080"
+		Title="MainWindow" Height="640" Width="1080" local:HelpProvider.HelpKey="index"
         Icon="Images/layers_32px.png">
-	<DockPanel>
-		<Menu DockPanel.Dock="Top">
-			<MenuItem Header="_File">
-				<MenuItem Header="Open" Click="Open_Click">
-					<MenuItem.Icon>
-						<Image Source="Images/notebook.png"/>
-					</MenuItem.Icon>
-				</MenuItem>
-				<MenuItem Header="Save..." Click="Save_Click">
-					<MenuItem.Icon>
-						<Image Source="Images/floppydisk.png"/>
-					</MenuItem.Icon>
-				</MenuItem>
-				<Separator />
-				<MenuItem Header="Add Event" Click="AddEvent_Click">
-					<MenuItem.Icon>
-						<Image Source="Images/documents.png"/>
-					</MenuItem.Icon>
-				</MenuItem>
-				<MenuItem Header="Add Type" Click="AddType_Click">
-					<MenuItem.Icon>
-						<Image Source="Images/document.png"/>
-					</MenuItem.Icon>
-				</MenuItem>
-				<MenuItem Header="Add Tag" Click="AddTag_Click">
-					<MenuItem.Icon>
-						<Image Source="Images/pricetags.png"/>
-					</MenuItem.Icon>
-				</MenuItem>
-			</MenuItem>
-			<MenuItem Header="_Edit">
-				<MenuItem Header="Details">
-					<MenuItem.Icon>
-						<Image Source="Images/magnifying-glass.png"/>
-					</MenuItem.Icon>
-				</MenuItem>
-				<MenuItem Header="Change">
-					<MenuItem.Icon>
-						<Image Source="Images/edit.png"/>
-					</MenuItem.Icon>
-				</MenuItem>
-				<MenuItem Header="Delete">
-					<MenuItem.Icon>
-						<Image Source="Images/remove.png"/>
-					</MenuItem.Icon>
-				</MenuItem>
-			</MenuItem>
-			<MenuItem Header="_View">
-				<MenuItem Header="Table" Click="Table_Click">
-					<MenuItem.Icon>
-						<Image Source="Images/grid.png"/>
-					</MenuItem.Icon>
-				</MenuItem>
-			</MenuItem>
-			<MenuItem Header="_Help">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
+    </Window.CommandBindings>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="Open" Click="Open_Click">
+                    <MenuItem.Icon>
+                        <Image Source="Images/notebook.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Save..." Click="Save_Click">
+                    <MenuItem.Icon>
+                        <Image Source="Images/floppydisk.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem x:Name="mniAdd" Header="Add Event" Click="AddEvent_Click" IsEnabled="{Binding Path=Data.Types.Count, Mode=OneWay}">
+                    <MenuItem.Icon>
+                        <Image Source="Images/documents.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Add Type" Click="AddType_Click">
+                    <MenuItem.Icon>
+                        <Image Source="Images/document.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Add Tag" Click="AddTag_Click">
+                    <MenuItem.Icon>
+                        <Image Source="Images/pricetags.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="Search">
+                    <MenuItem.Icon>
+                        <Image Source="Images/magnifying-glass.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Edit" Click="EditEvent_Click">
+                    <MenuItem.Icon>
+                        <Image Source="Images/edit.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Delete" Click="DeleteEvent_Click">
+                    <MenuItem.Icon>
+                        <Image Source="Images/remove.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Header="Table" Click="Table_Click">
+                    <MenuItem.Icon>
+                        <Image Source="Images/grid.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Help" Click="Help_Click">
 
-			</MenuItem>
-		</Menu>
+            </MenuItem>
+        </Menu>
 
-		<ToolBarTray DockPanel.Dock="Top" Background="LightGray" >
-			<ToolBar>
-				<Button Click="Open_Click">
-					<Image Height="32" Source="Images/notebook.png"/>
-				</Button>
-				<Button Click="Save_Click">
-					<Image Height="32" Source="Images/floppydisk.png"/>
-				</Button>
-				<Separator/>
-				<Button Click="AddEvent_Click">
-					<Image Height="32" Source="Images/documents.png"/>
-				</Button>
-				<Button Click="AddType_Click">
-					<Image Height="32" Source="Images/document.png"/>
-				</Button>
-				<Button Click="AddTag_Click">
-					<Image Height="32" Source="Images/pricetags.png"/>
-				</Button>
-			</ToolBar>
-			<ToolBar>
-				<Button>
-					<Image Height="32" Source="Images/search.png"/>
-				</Button>
-				<Button>
-					<Image Height="32" Source="Images/edit.png"/>
-				</Button>
-				<Button>
-					<Image Height="32" Source="Images/remove.png"/>
-				</Button>
-			</ToolBar>
-			<ToolBar>
-				<Button Click="Table_Click">
-					<Image Height="32" Source="Images/grid.png"/>
-				</Button>
-			</ToolBar>
-		</ToolBarTray>
-		
-		<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="*"/>
-			</Grid.ColumnDefinitions>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="*"/>
-			</Grid.RowDefinitions>
+        <ToolBarTray DockPanel.Dock="Top" Background="LightGray" >
+            <ToolBar>
+                <Button Click="Open_Click">
+                    <Image Height="32" Source="Images/notebook.png"/>
+                    <Button.ToolTip>
+                        Open
+                    </Button.ToolTip>
+                </Button>
+                <Button Click="Save_Click">
+                    <Image Height="32" Source="Images/floppydisk.png"/>
+                    <Button.ToolTip>
+                        Save
+                    </Button.ToolTip>
+                </Button>
+                <Separator/>
+                <Button x:Name="tbtAdd" Click="AddEvent_Click" IsEnabled="{Binding Path=Data.Types.Count, Mode=OneWay}">
+                    <Image Height="32" Source="Images/documents.png"/>
+                    <Button.ToolTip>
+                        Add Event
+                    </Button.ToolTip>
+                </Button>
+                <Button Click="AddType_Click">
+                    <Image Height="32" Source="Images/document.png"/>
+                    <Button.ToolTip>
+                        Add Type
+                    </Button.ToolTip>
+                </Button>
+                <Button Click="AddTag_Click">
+                    <Image Height="32" Source="Images/pricetags.png"/>
+                    <Button.ToolTip>
+                        Add Tag
+                    </Button.ToolTip>
+                </Button>
+            </ToolBar>
+            <ToolBar>
+                <Button>
+                    <Image Height="32" Source="Images/search.png"/>
+                    <Button.ToolTip>
+                        Search
+                    </Button.ToolTip>
+                </Button>
+                <Button Click="EditEvent_Click">
+                    <Image Height="32" Source="Images/edit.png"/>
+                    <Button.ToolTip>
+                        Edit
+                    </Button.ToolTip>
+                </Button>
+                <Button Click="DeleteEvent_Click">
+                    <Image Height="32" Source="Images/remove.png"/>
+                    <Button.ToolTip>
+                        Delete
+                    </Button.ToolTip>
+                </Button>
+            </ToolBar>
+            <ToolBar>
+                <Button Click="Table_Click">
+                    <Image Height="32" Source="Images/grid.png"/>
+                    <Button.ToolTip>
+                        Table
+                    </Button.ToolTip>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
 
-			<Grid Grid.Column="0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="200"/>
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="Auto"/>
-				</Grid.RowDefinitions>
+        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-				<TreeView Grid.Row="0">
+            <Grid Margin="2 2 2 2" Grid.Column="0" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="tbSearchEvent" Grid.Column="0" TextChanged="SearchEvent_TextChanged">
+                    <TextBox.ToolTip>
+                        Filter Map Events
+                    </TextBox.ToolTip>
+                </TextBox>
+                <Button Grid.Column="1" Click="CancelSearchEvent_Click">
+                    <Image Height="21" Source="/Images/arrows_remove.png"/>
+                    <Button.ToolTip>
+                        Clear Search
+                    </Button.ToolTip>
+                </Button>
+            </Grid>
 
-				</TreeView>
+            <ListView Margin="2 0 2 2" x:Name="lvEvents" Grid.Column="0" Grid.Row="1" Width="200" ItemsSource="{Binding Path=Data.ListEvents}" MouseDoubleClick="EditEvent_MouseClick" AllowDrop="True" DragOver="ListView_DragOver" Drop="EventsView_Drop" PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown" MouseMove="ListView_MouseMove">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="21" Stretch="Uniform" Source="{Binding Ikonica}" />
+                            <TextBlock Text="{Binding Naziv}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
-				<dvc:Chart Grid.Row="1">
-					<dvc:PieSeries></dvc:PieSeries>
-				</dvc:Chart>
-
-			</Grid>
-
-			<ListView Grid.Column="1">
-				<ListView.Template>
-					<ControlTemplate>
-						<Canvas>
-							<Canvas.Background>
-								<ImageBrush Stretch="UniformToFill" ImageSource="Images/map.jpg" AlignmentY="Top" AlignmentX="Center"/>
-							</Canvas.Background>
-						</Canvas>
-					</ControlTemplate>
-				</ListView.Template>
-			</ListView>
-		</Grid>
-	</DockPanel>
+            <ListView x:Name="lvMapEvents" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding Path=Data.MapEvents}" MouseDoubleClick="EditMapEvent_MouseClick" AllowDrop="True" DragOver="ListView_DragOver" Drop="MapView_Drop" PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown" MouseMove="ListView_MouseMove">
+                <ListView.Template>
+                    <ControlTemplate>
+                        <Canvas IsItemsHost="True">
+                            <Canvas.Background>
+                                <ImageBrush Stretch="UniformToFill" ImageSource="Images/map.jpg" AlignmentY="Top" AlignmentX="Center"/>
+                            </Canvas.Background>
+                        </Canvas>
+                    </ControlTemplate>
+                </ListView.Template>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Canvas.Left" Value="{Binding Point.X}" />
+                        <Setter Property="Canvas.Top" Value="{Binding Point.Y}" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Height="21" Stretch="Uniform" Source="{Binding Ikonica}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </DockPanel>
 
 </Window>

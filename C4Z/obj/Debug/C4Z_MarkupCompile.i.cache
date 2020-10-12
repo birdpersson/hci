@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\aleks\source\repos\C4Z\C4Z\App.xaml
-5851369564
-
-14-90506565
+6-1286282039
+4-669033018
+20-627264788
 20455026038
-Window\EventWindow.xaml;Window\TableWindow.xaml;Window\TagWindow.xaml;Window\TypeWindow.xaml;MainWindow.xaml;
+HelpViewer.xaml;Window\EventWindow.xaml;Window\TableWindow.xaml;Window\TagWindow.xaml;Window\TypeWindow.xaml;MainWindow.xaml;
 
-False
+True
 

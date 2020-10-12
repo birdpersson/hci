@@ -6,234 +6,278 @@
 		xmlns:dvc="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
 		xmlns:local="clr-namespace:C4Z"
 		mc:Ignorable="d"
-		Title="Table" Height="450" Width="800">
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition />
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition />
-		</Grid.RowDefinitions>
+		Title="Table" Height="443" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-		<TabControl>
-			<TabItem Header="Event">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition/>
-						<ColumnDefinition Width="0.75*"/>
-					</Grid.ColumnDefinitions>
-					
-					<DataGrid x:Name="dgEvents" ItemsSource="{Binding Path=Data.Events}" IsReadOnly="True" AutoGenerateColumns="False">
-						<DataGrid.Columns>
-							<DataGridTemplateColumn Header="Ikonica">
-								<DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<Image Height="28" Stretch="Uniform" Source="{Binding Ikonica}"/>
-									</DataTemplate>
-								</DataGridTemplateColumn.CellTemplate>
-							</DataGridTemplateColumn>
-							<DataGridTextColumn Header="Naziv" Binding="{Binding Naziv}"/>
-							<DataGridTextColumn Header="Oznaka" Binding="{Binding Oznaka}"/>
-							<DataGridTextColumn Header="Opis" Binding="{Binding Opis}"/>
-						</DataGrid.Columns>
-					</DataGrid>
+        <TabControl>
+            <TabItem Header="Event">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.75*"/>
+                    </Grid.ColumnDefinitions>
 
-					<Grid Grid.Column="1">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition/>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="Auto"/>
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"/>
-							<RowDefinition Height="Auto"/>
-							<RowDefinition/>
-							<RowDefinition Height="Auto"/>
-						</Grid.RowDefinitions>
+                    <DataGrid Margin="2 2 2 2" x:Name="dgEvents" ItemsSource="{Binding Path=Data.Events}" IsReadOnly="True" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Ikonica">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Height="28" Stretch="Uniform" Source="{Binding Ikonica}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Tip">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Tip.Naziv}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Naziv" Binding="{Binding Naziv}"/>
+                            <DataGridTextColumn Header="Oznaka" Binding="{Binding Oznaka}"/>
+                            <DataGridTextColumn Header="Opis" Binding="{Binding Opis}"/>
+                            <DataGridTextColumn Header="Drzava" Binding="{Binding Drzava}"/>
+                            <DataGridTextColumn Header="Grad" Binding="{Binding Grad}"/>
+                            <DataGridTextColumn Header="Mesto" Binding="{Binding Mesto}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
-						<TextBox x:Name="tbSearchEvent" Grid.Column="0" Grid.Row="0" TextChanged="SearchEvent_TextChanged"/>
-						<Button Grid.Column="1" Grid.Row="0" Click="SearchEvent_Click">
-							<Image Height="21" Source="/Images/basic_magnifier.png"/>
-						</Button>
-						<Button Grid.Column="2" Grid.Row="0" Click="CancelSearchEvent_Click">
-							<Image Height="21" Source="/Images/arrows_remove.png"/>
-						</Button>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-						<Grid Grid.Row="1">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition/>
-								<ColumnDefinition Width="Auto"/>
-								<ColumnDefinition Width="Auto"/>
-							</Grid.ColumnDefinitions>
-							<TextBlock Margin="6 6 6 6" Grid.Column="0" Grid.Row="1" Text="Filter Search:"/>
-							<RadioButton x:Name="FilterEvent" Margin="6 6 6 6" Grid.Column="1" Grid.Row="1" IsChecked="False">On</RadioButton>
-							<RadioButton Margin="6 6 6 6" Grid.Column="2" Grid.Row="1" IsChecked="True">Off</RadioButton>
-						</Grid>
+                        <Grid Margin="2 2 2 2" Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-						<dvc:Chart Margin="2 2 2 2" Grid.ColumnSpan="3" Grid.Row="2">
-							<dvc:PieSeries>
+                            <TextBox x:Name="tbSearchEvent" Grid.Column="0" TextChanged="SearchEvent_TextChanged">
+                                <TextBox.ToolTip>
+                                    Filter Search
+                                </TextBox.ToolTip>
+                            </TextBox>
+                            <Button Grid.Column="2" Click="CancelSearchEvent_Click">
+                                <Image Height="21" Source="/Images/arrows_remove.png"/>
+                                <Button.ToolTip>
+                                    Cancel Search
+                                </Button.ToolTip>
+                            </Button>
+                        </Grid>
 
-							</dvc:PieSeries>
-						</dvc:Chart>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-						<Grid Grid.Row="3" Grid.ColumnSpan="3" >
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition/>
-								<ColumnDefinition/>
-								<ColumnDefinition/>
-							</Grid.ColumnDefinitions>
-							<Button Margin="2 2 2 2" Grid.Column="0" Click="EditEvent_Click">Details</Button>
-                            <Button Margin="2 2 2 2" Grid.Column="1" Click="EditEvent_Click">Change</Button>
-							<Button Margin="2 2 2 2" Grid.Column="2" Click="DeleteEvent_Click">Delete</Button>
-						</Grid>
-					</Grid>
-				</Grid>
-			</TabItem>
-			<TabItem Header="Type">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition/>
-						<ColumnDefinition Width="0.75*"/>
-					</Grid.ColumnDefinitions>
+                            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"><Bold>Advanced Search:</Bold></TextBlock>
 
-					<DataGrid x:Name="dgTypes" ItemsSource="{Binding Path=Data.Types}" IsReadOnly="True" AutoGenerateColumns="False">
-						<DataGrid.Columns>
-							<DataGridTemplateColumn Header="Ikonica">
-								<DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<Image Height="28" Stretch="Uniform" Source="{Binding Ikonica}"/>
-									</DataTemplate>
-								</DataGridTemplateColumn.CellTemplate>
-							</DataGridTemplateColumn>
-							<DataGridTextColumn Header="Naziv" Binding="{Binding Naziv}"/>
-							<DataGridTextColumn Header="Oznaka" Binding="{Binding Oznaka}"/>
-							<DataGridTextColumn Header="Opis" Binding="{Binding Opis}"/>
-						</DataGrid.Columns>
-					</DataGrid>
+                            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="1">Naziv:</TextBlock>
+                            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="2">Oznaka:</TextBlock>
+                            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="3">Opis:</TextBlock>
 
-					<Grid Grid.Column="1">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition/>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="Auto"/>
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"/>
-							<RowDefinition Height="Auto"/>
-							<RowDefinition/>
-							<RowDefinition Height="Auto"/>
-						</Grid.RowDefinitions>
+                            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="4">Drzava:</TextBlock>
+                            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="5">Grad:</TextBlock>
+                            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="6">Mesto:</TextBlock>
 
-						<TextBox x:Name="tbSearchType" Grid.Column="0" Grid.Row="0" TextChanged="SearchType_TextChanged"/>
-						<Button Grid.Column="1" Grid.Row="0" Click="SearchType_Click">
-							<Image Height="21" Source="/Images/basic_magnifier.png"/>
-						</Button>
-                        <Button Grid.Column="2" Grid.Row="0" Click="CancelSearchType_Click">
-							<Image Height="21" Source="/Images/arrows_remove.png"/>
-						</Button>
+                            <TextBox x:Name="tbNazivEvent" Margin="2 2 2 2" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1"/>
+                            <TextBox x:Name="tbOznakaEvent" Margin="2 2 2 2" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2"/>
+                            <TextBox x:Name="tbOpisEvent" Margin="2 2 2 2" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="3"/>
 
-						<Grid Grid.Row="1">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition/>
-								<ColumnDefinition Width="Auto"/>
-								<ColumnDefinition Width="Auto"/>
-							</Grid.ColumnDefinitions>
-							<TextBlock Margin="6 6 6 6" Grid.Column="0" Grid.Row="1" Text="Filter Search:"/>
-							<RadioButton x:Name="FilterType" Margin="6 6 6 6" Grid.Column="1" Grid.Row="1" IsChecked="False">On</RadioButton>
-							<RadioButton Margin="6 6 6 6" Grid.Column="2" Grid.Row="1" IsChecked="True">Off</RadioButton>
-						</Grid>
+                            <TextBox x:Name="tbDrzavaEvent" Margin="2 2 2 2" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="4"/>
+                            <TextBox x:Name="tbGradEvent" Margin="2 2 2 2" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="5"/>
+                            <TextBox x:Name="tbMestoEvent" Margin="2 2 2 2" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="6"/>
+                        </Grid>
 
-						<dvc:Chart Margin="2 2 2 2" Grid.ColumnSpan="3" Grid.Row="2">
-							<dvc:PieSeries>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button Margin="2 2 2 2" Grid.Column="0" Click="SearchEvent_Click">Search</Button>
+                            <Button Margin="2 2 2 2" Grid.Column="1" Click="EditEvent_Click">Edit</Button>
+                            <Button Margin="2 2 2 2" Grid.Column="2" Click="DeleteEvent_Click">Delete</Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Type">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.75*"/>
+                    </Grid.ColumnDefinitions>
 
-							</dvc:PieSeries>
-						</dvc:Chart>
+                    <DataGrid Margin="2 2 2 2" x:Name="dgTypes" ItemsSource="{Binding Path=Data.Types}" IsReadOnly="True" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Ikonica">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Height="28" Stretch="Uniform" Source="{Binding Ikonica}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Naziv" Binding="{Binding Naziv}"/>
+                            <DataGridTextColumn Header="Oznaka" Binding="{Binding Oznaka}"/>
+                            <DataGridTextColumn Header="Opis" Binding="{Binding Opis}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
-						<Grid Grid.Row="3" Grid.ColumnSpan="3" >
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition/>
-								<ColumnDefinition/>
-								<ColumnDefinition/>
-							</Grid.ColumnDefinitions>
-							<Button Margin="2 2 2 2" Grid.Column="0" Click="EditType_Click">Details</Button>
-							<Button Margin="2 2 2 2" Grid.Column="1" Click="EditType_Click">Change</Button>
-							<Button Margin="2 2 2 2" Grid.Column="2" Click="DeleteType_Click">Delete</Button>
-						</Grid>
-					</Grid>
-				</Grid>
-			</TabItem>
-			<TabItem Header="Tag">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition/>
-						<ColumnDefinition Width="0.75*"/>
-					</Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-					<DataGrid x:Name="dgTags" ItemsSource="{Binding Path=Data.Tags}" IsReadOnly="True" AutoGenerateColumns="False">
-						<DataGrid.Columns>
-							<DataGridTemplateColumn Header="Boja">
-								<DataGridTemplateColumn.CellTemplate>
-									<DataTemplate>
-										<Grid Height="28" Background="{Binding Boja}"/>
-									</DataTemplate>
-								</DataGridTemplateColumn.CellTemplate>
-							</DataGridTemplateColumn>
-							<DataGridTextColumn Header="Oznaka" Binding="{Binding Oznaka}"/>
-							<DataGridTextColumn Header="Opis" Binding="{Binding Opis}"/>
-						</DataGrid.Columns>
-					</DataGrid>
+                        <Grid Margin="2 2 2 2" Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-					<Grid Grid.Column="1">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition/>
-							<ColumnDefinition Width="Auto"/>
-							<ColumnDefinition Width="Auto"/>
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto"/>
-							<RowDefinition Height="Auto"/>
-							<RowDefinition/>
-							<RowDefinition Height="Auto"/>
-						</Grid.RowDefinitions>
+                            <TextBox x:Name="tbSearchType" Grid.Column="0" TextChanged="SearchType_TextChanged">
+                                <TextBox.ToolTip>
+                                    Filter Search
+                                </TextBox.ToolTip>
+                            </TextBox>
+                            <Button Grid.Column="2" Click="CancelSearchType_Click">
+                                <Image Height="21" Source="/Images/arrows_remove.png"/>
+                                <Button.ToolTip>
+                                    Cancel Search
+                                </Button.ToolTip>
+                            </Button>
+                        </Grid>
 
-						<TextBox x:Name="tbSearchTag" Grid.Column="0" Grid.Row="0" TextChanged="SearchTag_TextChanged"/>
-						<Button Grid.Column="1" Grid.Row="0" Click="SearchTag_Click">
-							<Image Height="21" Source="/Images/basic_magnifier.png"/>
-						</Button>
-						<Button Grid.Column="2" Grid.Row="0" Click="CancelSearchTag_Click">
-							<Image Height="21" Source="/Images/arrows_remove.png"/>
-						</Button>
+                        <dvc:Chart Margin="2 2 2 2" Grid.Row="1">
+                            <dvc:BarSeries Title="Tip" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" ItemsSource="{Binding Types}" />
+                        </dvc:Chart>
 
-						<Grid Grid.Row="1">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition/>
-								<ColumnDefinition Width="Auto"/>
-								<ColumnDefinition Width="Auto"/>
-							</Grid.ColumnDefinitions>
-							<TextBlock Margin="6 6 6 6" Grid.Column="0" Grid.Row="1" Text="Filter Search:"/>
-							<RadioButton x:Name="FilterTag" Margin="6 6 6 6" Grid.Column="1" Grid.Row="1" IsChecked="False">On</RadioButton>
-							<RadioButton Margin="6 6 6 6" Grid.Column="2" Grid.Row="1" IsChecked="True">Off</RadioButton>
-						</Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
 
-						<dvc:Chart Margin="2 2 2 2" Grid.ColumnSpan="3" Grid.Row="2">
-							<dvc:PieSeries>
+                            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="0">Naziv:</TextBlock>
+                            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="1">Oznaka:</TextBlock>
+                            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="2">Opis:</TextBlock>
 
-							</dvc:PieSeries>
-						</dvc:Chart>
+                            <TextBox x:Name="tbNazivType" Margin="2 2 2 2" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="0"/>
+                            <TextBox x:Name="tbOznakaType" Margin="2 2 2 2" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1"/>
+                            <TextBox x:Name="tbOpisType" Margin="2 2 2 2" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2"/>
 
-						<Grid Grid.Row="3" Grid.ColumnSpan="3" >
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition/>
-								<ColumnDefinition/>
-								<ColumnDefinition/>
-							</Grid.ColumnDefinitions>
-							<Button Margin="2 2 2 2" Grid.Column="0" Click="EditTag_Click">Details</Button>
-							<Button Margin="2 2 2 2" Grid.Column="1" Click="EditTag_Click">Change</Button>
-							<Button Margin="2 2 2 2" Grid.Column="2" Click="DeleteTag_Click">Delete</Button>
-						</Grid>
-					</Grid>
-				</Grid>
-			</TabItem>
-		</TabControl>
-	</Grid>
+                            <Button Margin="2 2 2 2" Grid.Column="0" Grid.Row="3" Click="SearchType_Click">Search</Button>
+                            <Button Margin="2 2 2 2" Grid.Column="1" Grid.Row="3" Click="EditType_Click">Edit</Button>
+                            <Button Margin="2 2 2 2" Grid.Column="2" Grid.Row="3" Click="DeleteType_Click">Delete</Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Tag">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.75*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <DataGrid Margin="2 2 2 2" x:Name="dgTags" ItemsSource="{Binding Path=Data.Tags}" IsReadOnly="True" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Boja">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid Height="28" Background="{Binding Boja}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Oznaka" Binding="{Binding Oznaka}"/>
+                            <DataGridTextColumn Header="Opis" Binding="{Binding Opis}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Margin="2 2 2 2" Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox x:Name="tbSearchTag" Grid.Column="0" TextChanged="SearchTag_TextChanged">
+                                <TextBox.ToolTip>
+                                    Filter Search
+                                </TextBox.ToolTip>
+                            </TextBox>
+                            <Button Grid.Column="1" Click="CancelSearchTag_Click">
+                                <Image Height="21" Source="/Images/arrows_remove.png"/>
+                                <Button.ToolTip>
+                                    Cancel Search
+                                </Button.ToolTip>
+                            </Button>
+                        </Grid>
+
+                        <dvc:Chart Margin="2 2 2 2" Grid.ColumnSpan="2" Grid.Row="1">
+                            <dvc:PieSeries x:Name="dvcTag" IndependentValueBinding="{Binding Path=Key}" DependentValueBinding="{Binding Path=Value}" ItemsSource="{Binding Tags}" />
+                        </dvc:Chart>
+
+                        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="0">Oznaka:</TextBlock>
+                            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="1">Opis:</TextBlock>
+
+                            <TextBox x:Name="tbOznakaTag" Margin="2 2 2 2" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="0"/>
+                            <TextBox x:Name="tbOpisTag" Margin="2 2 2 2" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1" />
+
+                            <Button Margin="2 2 2 2" Grid.Column="0" Grid.Row="3" Click="SearchTag_Click">Search</Button>
+                            <Button Margin="2 2 2 2" Grid.Column="1" Grid.Row="3" Click="EditTag_Click">Edit</Button>
+                            <Button Margin="2 2 2 2" Grid.Column="2" Grid.Row="3" Click="DeleteTag_Click">Delete</Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
 </Window>

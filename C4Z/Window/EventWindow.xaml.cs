@@ -1,4 +1,5 @@
 ﻿using C4Z.Model;
+using C4Z.Validation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,7 +25,7 @@ namespace C4Z
     {
         private bool iconChanged = false;
         private bool edit = false;
-        private Event dog;
+        public static Event doge;
 
         public ObservableCollection<Tvpe> Types
         {
@@ -44,31 +45,40 @@ namespace C4Z
             set;
         }
 
+        public static Data Data
+        {
+            get;
+            set;
+        }
+
         public EventWindow()
         {
             InitializeComponent();
             this.DataContext = this;
-            Event = new Event();
+            Data = MainWindow.Data;
             Types = MainWindow.Data.Types;
             Tags = new ObservableCollection<Tag>();
             foreach (Tag t in MainWindow.Data.Tags)
                 Tags.Add(t);
+            Event = new Event();
+            Event.Tip = Types[0];
         }
 
         public EventWindow(Event dog)
         {
             InitializeComponent();
             this.DataContext = this;
-            this.dog = dog;
+            doge = dog;
             edit = true;
             iconChanged = true;
-            Event = new Event { Oznaka = dog.Oznaka, Naziv = dog.Naziv, Opis = dog.Opis, Tip = dog.Tip, Ikonica = dog.Ikonica, Tags = dog.Tags, Posecenost = dog.Posecenost, Humanitarna = dog.Humanitarna, Cena = dog.Cena, Drzava = dog.Drzava, Grad = dog.Grad, Mesto = dog.Mesto, Istorija = dog.Istorija, Datum = dog.Datum };
             Types = MainWindow.Data.Types;
             Tags = new ObservableCollection<Tag>();
             foreach (Tag t in MainWindow.Data.Tags)
                 Tags.Add(t);
             foreach (Tag t in dog.Tags)
                 Tags.Remove(t);
+            Event = new Event { Oznaka = dog.Oznaka, Naziv = dog.Naziv, Opis = dog.Opis, Tip = dog.Tip, Ikonica = dog.Ikonica, Tags = dog.Tags, Posecenost = dog.Posecenost, Humanitarna = dog.Humanitarna, Cena = dog.Cena, Drzava = dog.Drzava, Grad = dog.Grad, Mesto = dog.Mesto, Dates = dog.Dates, Datum = dog.Datum };
+            TextBox_TextChanged(null, null);
         }
 
         private void AddTag_Click(object sender, RoutedEventArgs e)
@@ -129,7 +139,7 @@ namespace C4Z
         private void Discard_Click(object sender, RoutedEventArgs e)
         {
             if (edit)
-                Event.Ikonica = dog.Ikonica;
+                Event.Ikonica = doge.Ikonica;
             else
             {
                 Tvpe t = (Tvpe)cbType.SelectedValue;
@@ -148,24 +158,61 @@ namespace C4Z
         {
             this.Close();
             if (!edit)
+            {
+                MainWindow.Data.ListEvents.Add(Event);
                 MainWindow.Data.Events.Add(Event);
+            }
             else
             {
-                dog.Oznaka = Event.Oznaka;
-                dog.Naziv = Event.Naziv;
-                dog.Opis = Event.Opis;
-                dog.Tip = Event.Tip;
-                dog.Tags = Event.Tags;
-                dog.Ikonica = Event.Ikonica;
-                dog.Posecenost = Event.Posecenost;
-                dog.Humanitarna = Event.Humanitarna;
-                dog.Cena = Event.Cena;
-                dog.Drzava = Event.Drzava;
-                dog.Grad = Event.Grad;
-                dog.Mesto = Event.Mesto;
-                dog.Istorija = Event.Istorija;
-                dog.Datum = Event.Datum;
+                doge.Oznaka = Event.Oznaka;
+                doge.Naziv = Event.Naziv;
+                doge.Opis = Event.Opis;
+                doge.Tip = Event.Tip;
+                doge.Tags = Event.Tags;
+                doge.Ikonica = Event.Ikonica;
+                doge.Posecenost = Event.Posecenost;
+                doge.Humanitarna = Event.Humanitarna;
+                doge.Cena = Event.Cena;
+                doge.Drzava = Event.Drzava;
+                doge.Grad = Event.Grad;
+                doge.Mesto = Event.Mesto;
+                doge.Dates = Event.Dates;
+                doge.Datum = Event.Datum;
             }
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            EventIDValidationRule ev = new EventIDValidationRule();
+            NameValidationRule nv = new NameValidationRule();
+            if (ev.Validate(tbID.Text, null).IsValid == true &&
+                nv.Validate(tbName.Text, null).IsValid == true &&
+                nv.Validate(tbDrzava.Text, null).IsValid == true &&
+                nv.Validate(tbGrad.Text, null).IsValid == true &&
+                nv.Validate(tbMesto.Text, null).IsValid == true)
+                btnOK.IsEnabled = true;
+            else
+                btnOK.IsEnabled = false;
+        }
+
+        private void AddDate_Click(object sender, RoutedEventArgs e)
+        {
+            BindingExpression binding = cbDates.GetBindingExpression(ComboBox.TextProperty);
+            binding.UpdateSource();
+            cbDates.Text = "";
+        }
+
+        private void RemoveDate_Click(object sender, RoutedEventArgs e)
+        {
+            Event.Dates.Remove(Event.Date);
+            cbDates.Text = "";
+        }
+
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            HelpViewer help = new HelpViewer("event", null);
+            help.Show();
+        }
+
     }
 }

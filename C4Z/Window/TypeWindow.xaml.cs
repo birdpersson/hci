@@ -1,4 +1,5 @@
 ﻿using C4Z.Model;
+using C4Z.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace C4Z
     public partial class TypeWindow : Window
     {
         private bool edit = false;
-        private Tvpe tip;
+        public static Tvpe tipe;
 
         public Tvpe Tip
         {
@@ -40,9 +41,10 @@ namespace C4Z
         {
             InitializeComponent();
             this.DataContext = this;
-            this.tip = tip;
+            tipe = tip;
             Tip = new Tvpe { Oznaka = tip.Oznaka, Naziv = tip.Naziv, Ikonica = tip.Ikonica, Opis = tip.Opis };
             edit = true;
+            TextBox_TextChanged(null, null);
         }
 
         private void Choose_Click(object sender, RoutedEventArgs e)
@@ -60,7 +62,7 @@ namespace C4Z
             if (!edit)
                 Tip.Ikonica = "/Images/basic_signs.png";
             else
-                Tip.Ikonica = tip.Ikonica;
+                Tip.Ikonica = tipe.Ikonica;
         }
 
         private void Ok_Click(object sender, RoutedEventArgs e)
@@ -70,10 +72,10 @@ namespace C4Z
                 MainWindow.Data.Types.Add(Tip);
             else
             {
-                tip.Oznaka = Tip.Oznaka;
-                tip.Naziv = Tip.Naziv;
-                tip.Ikonica = Tip.Ikonica;
-                tip.Opis = Tip.Opis;
+                tipe.Oznaka = Tip.Oznaka;
+                tipe.Naziv = Tip.Naziv;
+                tipe.Ikonica = Tip.Ikonica;
+                tipe.Opis = Tip.Opis;
             }
         }
 
@@ -82,5 +84,22 @@ namespace C4Z
             this.Close();
             Application.Current.MainWindow.Show();
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TypeIDValidationRule ev = new TypeIDValidationRule();
+            NameValidationRule nv = new NameValidationRule();
+            if (ev.Validate(tbID.Text, null).IsValid == true && nv.Validate(tbName.Text, null).IsValid == true)
+                btnOK.IsEnabled = true;
+            else
+                btnOK.IsEnabled = false;
+        }
+
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            HelpViewer help = new HelpViewer("type", null);
+            help.Show();
+        }
+
     }
 }

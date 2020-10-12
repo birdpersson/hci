@@ -4,42 +4,60 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:val="clr-namespace:C4Z.Validation"
 		xmlns:local="clr-namespace:C4Z"
-		mc:Ignorable="d"
-		Title="Tag" Height="250" Width="350">
-	<Border Padding="10">
-		<Grid DataContext="{Binding Etiketa}">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="*"/>
-			</Grid.ColumnDefinitions>
-			<Grid.RowDefinitions>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="Auto"/>
-				<RowDefinition/>
-				<RowDefinition Height="Auto"/>
+        mc:Ignorable="d"
+		Title="Tag" Height="250" Width="350" local:HelpProvider.HelpKey="tag">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
+    </Window.CommandBindings>
 
-			</Grid.RowDefinitions>
+    <Border Padding="10">
+        <Grid DataContext="{Binding Etiketa}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-			<TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="0">Oznaka*:</TextBlock>
-			<TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="1">Boja:</TextBlock>
-			<TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="2">Opis:</TextBlock>
+            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="0">Oznaka*:</TextBlock>
+            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="1">Boja:</TextBlock>
+            <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="2">Opis:</TextBlock>
 
-			<!--Oznaka-->
-			<TextBox Margin="2 2 2 2" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" Text="{Binding Oznaka}">
-			</TextBox>
+            <!--Oznaka-->
+            <TextBox x:Name="tbID" Margin="2 2 2 2" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" TextChanged="ID_TextChanged">
+                <TextBox.Text>
+                    <Binding Path="Oznaka" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:TagIDValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <TextBox.ToolTip>
+                    Oznaka mora biti jedinstvena
+                </TextBox.ToolTip>
+            </TextBox>
 
-			<!--Boja-->
-			<xctk:ColorPicker Margin="2 2 2 2" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" SelectedColor="{Binding Boja}"/>
+            <!--Boja-->
+            <xctk:ColorPicker Margin="2 2 2 2" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Stretch" SelectedColor="{Binding Boja}">
+                <xctk:ColorPicker.ToolTip>
+                    Odabir boje
+                </xctk:ColorPicker.ToolTip>
+            </xctk:ColorPicker>
 
-			<!--Opis-->
-			<ScrollViewer Margin="2 2 2 2" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch">
-				<TextBox Text="{Binding Opis}"></TextBox>
-			</ScrollViewer>
+            <!--Opis-->
+            <ScrollViewer Margin="2 2 2 2" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch">
+                <TextBox Text="{Binding Opis}"></TextBox>
+            </ScrollViewer>
 
-			<!--OK?-->
-			<Button Margin="2 2 2 2" Grid.Column="0" Grid.Row="3" Click="Ok_Click">Ok</Button>
-			<Button Margin="2 2 2 2" Grid.Column="1" Grid.Row="3" Click="Cancel_Click">Cancel</Button>
-		</Grid>
-	</Border>
+            <!--OK?-->
+            <Button x:Name="btnOK" Margin="2 2 2 2" Grid.Column="0" Grid.Row="3" Click="Ok_Click" IsEnabled="False">Ok</Button>
+            <Button Margin="2 2 2 2" Grid.Column="1" Grid.Row="3" Click="Cancel_Click">Cancel</Button>
+        </Grid>
+    </Border>
 </Window>

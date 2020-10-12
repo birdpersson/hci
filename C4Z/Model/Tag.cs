@@ -22,8 +22,8 @@ namespace C4Z.Model
 
         [NonSerialized]
         private string _oznaka;
-        private string _boja;
-        private string _opis;
+        private string _boja = "#fff";
+        private string _opis = "";
 
         [DataMember]
         public string Oznaka
